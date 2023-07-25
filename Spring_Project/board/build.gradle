@@ -1,0 +1,88 @@
+
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.1.2'
+    id 'io.spring.dependency-management' version '1.1.2'
+}
+
+group = 'com.spring'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '17'
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.2'
+    compileOnly 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'com.mysql:mysql-connector-j'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.2'
+
+    //Gradle 3.0.0 이후 버전 querydsl 추가 시 추가 dependency
+    implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+    annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jakarta"
+    annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+    annotationProcessor "jakarta.persistence:jakarta.persistence-api"
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+//Gradle 빌드 스크립트에서 Querydsl을 사용하여 SQL 쿼리를 자바 코드로 생성하는 설정
+//src/main/generated 디렉토리에 생성될 것으로 설정
+def querydslSrcDir = 'src/main/generated'
+
+//빌드 결과물 제거하는 코드
+clean {
+    delete file(querydslSrcDir)
+}
+//generatedSourceOutputDirectory으로 설정하여, Querydsl로 생성된 자바 코드들이 querydslSrcDir 디렉토리에 생성되도록 함
+tasks.withType(JavaCompile) {
+    options.generatedSourceOutputDirectory = file(querydslSrcDir)
+}
+/*위의 설정은 Querydsl로 작성된 쿼리 코드를 Gradle 빌드 시점에
+자바 코드로 변환하여 src/main/generated 디렉토리에 저장하도록 설정하는 것입니다.
+이렇게 생성된 자바 코드를 프로젝트에서 사용하여 SQL 쿼리를 실행할 수 있게 됩니다.*/
+
+
+
+
+
+
+/*
+def querydslDir = "$buildDir/generated/querydsl"
+
+sourceSets {
+    main.java.srcDirs += [ querydslDir ]
+}
+
+tasks.withType(JavaCompile) {
+    options.annotationProcessorGeneratedSourcesDirectory = file(querydslDir)
+}
+
+clean.doLast {
+    file(querydslDir).deleteDir()
+}
+*/
+
+/*
+clean {
+    delete file('src/main/generated')
+}*/
