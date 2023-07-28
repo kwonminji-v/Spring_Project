@@ -32,7 +32,7 @@ public class GuestbookServiceImpl implements GuestbookService {
     @Override
     public PageResultDTO<GuestbookDTO, Guestbook> getList(PageRequestDTO requestDTO) {
 
-        Pageable pageable = requestDTO.getPageable(Sort.by("gno"));
+        Pageable pageable = requestDTO.getPageable(Sort.by("gno").descending());
         Page<Guestbook> result = repository.findAll(pageable);
         Function<Guestbook, GuestbookDTO> fn = (entity -> entityToDto(entity));
         /** JPA의 처리 결과인 Page<Entity>와 Function을 전달해 엔티티 객체들을 DTO의 리스트로 변환하고
