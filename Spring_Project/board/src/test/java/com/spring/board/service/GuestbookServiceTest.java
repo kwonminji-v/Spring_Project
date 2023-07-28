@@ -7,6 +7,7 @@ import com.spring.board.entity.Guestbook;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Pageable;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -34,10 +35,13 @@ class GuestbookServiceTest {
 
         PageResultDTO<GuestbookDTO, Guestbook> resultDTO = guestbookService.getList(pageRequestDTO);
 
-        for (GuestbookDTO guestbookDTO : resultDTO.getDtoList()) {
+         for (GuestbookDTO guestbookDTO : resultDTO.getDtoList()) {
             System.out.println("guestbookDTO = " + guestbookDTO);
         }
-        
+
+        System.out.println(resultDTO);
     }
+
+
 
 }
