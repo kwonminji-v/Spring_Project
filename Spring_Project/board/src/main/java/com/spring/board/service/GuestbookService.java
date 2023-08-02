@@ -2,6 +2,7 @@ package com.spring.board.service;
 
 import com.spring.board.dto.GuestbookDTO;
 import com.spring.board.dto.PageRequestDTO;
+import com.spring.board.dto.PageResultDTO;
 import com.spring.board.entity.Guestbook;
 
 /**
@@ -13,7 +14,7 @@ public interface GuestbookService {
      * -> 실제 코드를 인터페이스에 선언할 수 있다 => 추상클래스를 생략하는것이 가능해 졌다*/
 
     Long register(GuestbookDTO dto);
-    // PageResultDTO<GuestbookDTO, Guestbook> getList(PageRequestDTO requestDTO);
+    PageResultDTO<GuestbookDTO, Guestbook> getList(PageRequestDTO requestDTO);
     /**default 기능을 활용, 구현클래스에서 동작 할 수 있는 dtoToEntity 메서드 구성*/
     default Guestbook dtoToEntity(GuestbookDTO dto) {
         Guestbook entity = Guestbook.builder()
@@ -39,4 +40,6 @@ public interface GuestbookService {
 
         return dto;
     }
+
+
 }
