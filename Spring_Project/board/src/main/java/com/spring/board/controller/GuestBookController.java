@@ -29,7 +29,7 @@ public class GuestBookController {
     }
 
     @GetMapping("/list") //실제 보여지는 화면에 페이징 기능을 반영
-    public void list(PageRequestDTO pageRequestDTO, Model model) {
+    public void list(@ModelAttribute PageRequestDTO pageRequestDTO, Model model) {
         /** 실제로 model에 추가되는 데이터 :PageResultDTO*/
         //model을 이용해 GuestBookServiceImple에서 반환하는 PageResultDTO를 result 라는 이름으로 전달
         log.info("list 목록 ===============" + pageRequestDTO);
