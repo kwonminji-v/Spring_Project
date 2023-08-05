@@ -3,6 +3,7 @@ package com.spring.board.controller;
 
 import com.spring.board.dto.GuestbookDTO;
 import com.spring.board.dto.PageRequestDTO;
+import com.spring.board.dto.PageResultDTO;
 import com.spring.board.service.GuestbookService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -17,20 +18,23 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping("/guestbook")
 @Log4j2
+@RequiredArgsConstructor
 public class GuestBookController {
 
-    @GetMapping({"/","list"})
+    private final GuestbookService service;
+
+    @GetMapping("/")
     public String list() {
-        log.info("list.................");
-        return "/guestbook/list";
+        return "redirect:/guestbook/list";
     }
 
-/*    @GetMapping("list") //실제 보여지는 화면에 페이징 기능을 반영
+    @GetMapping("/list") //실제 보여지는 화면에 페이징 기능을 반영
     public void list(@ModelAttribute PageRequestDTO pageRequestDTO, Model model) {
-        *//** 실제로 model에 추가되는 데이터 : PageResultDTO *//*
+        /** 실제로 model에 추가되는 데이터 :PageResultDTO*/
         //model을 이용해 GuestBookServiceImple에서 반환하는 PageResultDTO를 result 라는 이름으로 전달
-        model.addAttribute("result", guestbookService.getList(pageRequestDTO));
-    }*/
+        log.info("list 목록 ===============" + pageRequestDTO);
+        model.addAttribute("result", service.getList(pageRequestDTO));
+    }
 
     // 화면을 보여준다
 /*    @GetMapping("/register")
