@@ -37,7 +37,7 @@ public class GuestBookController {
     }
 
     // 화면을 보여준다
-/*    @GetMapping("/register")
+    @GetMapping("/register")
     public void register(){
 
     }
@@ -46,13 +46,13 @@ public class GuestBookController {
     public String registerPost(GuestbookDTO dto, RedirectAttributes redirectAttributes){
 
         // 새로 추가된 엔티티의 번호
-        Long gno = guestbookService.register(dto);
+        Long gno = service.register(dto);
 
         // addFlashAttribute() : 단 한번만 데이터를 전달하는 용도로 사용한다
         // redirectAttributes : 한 번만 화면에서 "msg"라는 이름의 변수를 사용할 수 있도록 처리
         redirectAttributes.addFlashAttribute("msg", gno);
 
         return "redirect:/guestbook/list";
-    }*/
+    }
 }
 
