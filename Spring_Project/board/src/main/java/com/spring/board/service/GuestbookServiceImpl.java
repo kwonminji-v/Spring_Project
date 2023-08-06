@@ -44,11 +44,35 @@ public class GuestbookServiceImpl implements GuestbookService{
         return new PageResultDTO<>(result, fn);
     }
 
+    //서비스에 정의된 read() 메서드 구현
     @Override
     public GuestbookDTO read(Long gno) {
 
+        /**findById를 통해 entity객체를 가져온 후, DTO로 변환*/
         Optional<Guestbook> result = repository.findById(gno);
 
         return result.isPresent() ? entityToDto(result.get()) : null;
+    }
+
+    @Override
+    public void remove(Long gno) {
+
+    }
+
+    @Override
+    public void modify(GuestbookDTO dto) {
+        /** 업데이트 하는 항목은 '제목', '내용' */
+        Optional<Guestbook> result = repository.findById(dto.getGno());
+
+        if (result.isPresent()) {
+
+            Guestbook entity = result.get();
+
+            entity.changeTitle(dto.getTitle());
+            entity.changeContent(dto.getTitle());
+
+            repository.save(entity);
+        }
+
     }
 }
