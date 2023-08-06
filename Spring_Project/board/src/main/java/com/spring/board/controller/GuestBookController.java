@@ -36,6 +36,7 @@ public class GuestBookController {
         model.addAttribute("result", service.getList(pageRequestDTO));
     }
 
+
     // 화면을 보여준다
     @GetMapping("/register")
     public void register(){
