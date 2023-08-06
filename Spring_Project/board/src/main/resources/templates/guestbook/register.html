@@ -5,22 +5,23 @@
 
     <th:block th:fragment="content">
 
-        <h1 class="mt-4">GuestBook Register Page</h1>
+        <h1 class="mt-4">GuestBook 등록 할 수 있는 페이지</h1>
         <!--action속성값을 "/guestbook/register"로 지정하고 POST방식으로 전송할 수 있도록 한다-->
         <form th:action="@{/guestbook/register}" th:method="post">
+            <!--등록은 POST 방식 , 저장 후 action값을 통해 자동으로 list로 이동하도록 설정-->
             <div class="form-group">
-                <label >Title</label>
+                <label >글 제목</label>
                 <input type="text" class="form-control" name="title" placeholder="Enter Title">
             </div>
             <div class="form-group">
-                <label >Content</label>
+                <label >글 내용</label>
                 <textarea class="form-control" rows="5" name="content"></textarea>
             </div>
             <div class="form-group">
-                <label >Writer</label>
+                <label >작성자</label>
                 <input type="text" class="form-control" name="writer" placeholder="Enter Writer">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">저장하기</button>
         </form>
 
     </th:block>
